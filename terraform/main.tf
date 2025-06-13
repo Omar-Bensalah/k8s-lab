@@ -6,27 +6,22 @@ terraform {
     }
   }
 }
-# Create multiple VMs (control from control node)
 resource "virtualbox_vm" "k8s_nodes" {
-  count      = var.node_count
+  count = var.vm_count
+  name  = "${var.vm_prefix}-${count.index + 1}"
+  image = var.vm_image
+  cpus  = var.vm_cpus
+  memory = var.vm_memory
 
-  # VM name will be k8s-node-0, k8s-node-1, etc.
-  name       = "k8s-node-${count.index}"
-
-  # The base image to use – Vagrant will download this automatically
-  image      = var.vm_image
-
-  # CPU and memory allocation
-  cpus       = var.vm_cpus
-  memory     = var.vm_memory
-
-  # Attach a host-only network interface (e.g., vboxnet0)
   network_adapter {
     type           = "hostonly"
-    host_interface = var.host_interface
+    host_interface = var.hostonly_interface
   }
 
-  # Set the SSH user so Ansible can later connect
-  # ssh_username = var.vm_user
-   # ssh_key_path = var.ssh_private_key_path
+  network_interface {
+    type = "hostonly"
+    host_interface = var.hostonly_interface
+    ipv4_address   = "192.168.56.${100 + count.index}"
+    ipv4_prefix    = 24
+  }
 }
