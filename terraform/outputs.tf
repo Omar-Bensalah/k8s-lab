@@ -5,8 +5,10 @@ output "node_ips" {
 
 # Render a dynamic Ansible inventory from a template file
 output "ansible_inventory" {
-  value = templatefile("${path.module}/inventory.tpl", {
-    ips  = [for vm in virtualbox_vm.k8s_nodes : vm.ipv4_address]
-    user = var.vm_user
-  })
+  value = [
+    for i in range(var.vm_count) : {
+      name = "node-${i + 1}"
+      ip   = "192.168.56.${100 + i + 1}"
+    }
+  ]
 }
