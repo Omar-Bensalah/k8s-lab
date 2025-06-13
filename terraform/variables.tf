@@ -5,7 +5,7 @@ variable "vm_count" {
 
 # Vagrant box to use for the VMs
 variable "vm_image" {
-  default = "jammy-server-cloudimg-amd64.vmdk"
+  default = "/64bit/ubuntu2204.vdi"
 }
 
 variable "hostonly_interface" {
