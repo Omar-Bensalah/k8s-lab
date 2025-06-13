@@ -36,5 +36,5 @@ variable "ssh_private_key_path" {
 
 # Host-only network interface (must exist in VirtualBox)
 variable "host_interface" {
-  default = "vboxnet0"
+  default = "VirtualBox Host-Only Ethernet Adapter"
 }
