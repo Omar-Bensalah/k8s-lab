@@ -8,6 +8,12 @@ variable "vm_image" {
   default = "ubuntu/jammy64"
 }
 
+variable "hostonly_interface" {
+  description = "Name of the VirtualBox host-only interface"
+  type        = string
+  default     = "vboxnet0"
+}
+
 # CPU cores per VM
 variable "vm_cpus" {
   default = 2

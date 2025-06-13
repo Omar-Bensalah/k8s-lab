@@ -8,7 +8,7 @@ terraform {
 }
 resource "virtualbox_vm" "k8s_nodes" {
   count = var.vm_count
-  name  = "${var.vm_prefix}-${count.index + 1}"
+  name  = "node-${count.index + 1}"
   image = var.vm_image
   cpus  = var.vm_cpus
   memory = var.vm_memory
