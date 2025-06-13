@@ -11,7 +11,7 @@ variable "vm_image" {
 variable "hostonly_interface" {
   description = "Name of the VirtualBox host-only interface"
   type        = string
-  default     = "vboxnet0"
+  default     = "VirtualBox Host-Only Ethernet Adapter"
 }
 
 # CPU cores per VM
