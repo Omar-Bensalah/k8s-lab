@@ -17,8 +17,5 @@ resource "virtualbox_vm" "k8s_nodes" {
     type           = "hostonly"
     host_interface = var.hostonly_interface
   }
-
-  network_adapter {
-    type = "nat"
-  }
+  
 }
