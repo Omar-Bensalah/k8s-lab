@@ -1,11 +1,11 @@
 # Number of nodes: 1 master + 2 workers
-variable "node_count" {
+variable "vm_count" {
   default = 3
 }
 
 # Vagrant box to use for the VMs
 variable "vm_image" {
-  default = "ubuntu/focal64"
+  default = "ubuntu/jammy64"
 }
 
 # CPU cores per VM
