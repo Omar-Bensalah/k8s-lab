@@ -1,0 +1,47 @@
+- name: Add Kubernetes apt repository
+  apt_key:
+    url: https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key
+    state: present
+  register: kubernetes_key
+
+- name: Add Kubernetes repo to sources list
+  apt_repository:
+    repo: "deb https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /"
+    state: present
+    filename: kubernetes
+
+- name: Install kubeadm, kubelet, and kubectl
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    update_cache: yes
+
+- name: Initialize the Kubernetes cluster
+  shell: kubeadm init --pod-network-cidr=10.244.0.0/16
+  register: kubeadm_output
+  args:
+    creates: /etc/kubernetes/admin.conf
+
+- name: Set up kubeconfig for vagrant user
+  become_user: vagrant
+  shell: |
+    mkdir -p $HOME/.kube
+    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    chown $(id -u):$(id -g) $HOME/.kube/config
+
+- name: Install flannel CNI
+  become_user: vagrant
+  shell: |
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+- name: Get join command
+  shell: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Write join command to shared file
+  copy:
+    content: "{{ join_command.stdout }}"
+    dest: /vagrant/join_command.sh

@@ -1,0 +1,7 @@
+- name: Read join command from file
+  shell: cat /vagrant/join_command.sh
+  register: join_cmd
+
+- name: Join the Kubernetes cluster
+  shell: "{{ join_cmd.stdout }}"
+  when: join_cmd.stdout != ""

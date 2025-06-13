@@ -1,0 +1,10 @@
+- name: Install containerd
+  apt:
+    name: containerd
+    state: present
+
+- name: Enable and start containerd
+  systemd:
+    name: containerd
+    enabled: yes
+    state: started

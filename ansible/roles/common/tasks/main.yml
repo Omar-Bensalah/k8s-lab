@@ -1,0 +1,13 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install basic tools
+  apt:
+    name:
+      - curl
+      - gnupg
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+    state: present
