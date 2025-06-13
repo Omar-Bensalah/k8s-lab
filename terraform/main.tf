@@ -27,6 +27,6 @@ resource "virtualbox_vm" "k8s_nodes" {
   }
 
   # Set the SSH user so Ansible can later connect
-  ssh_username = var.vm_user
-  ssh_key_path = var.ssh_private_key_path
+  # ssh_username = var.vm_user
+   # ssh_key_path = var.ssh_private_key_path
 }
