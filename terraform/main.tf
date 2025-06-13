@@ -18,10 +18,7 @@ resource "virtualbox_vm" "k8s_nodes" {
     host_interface = var.hostonly_interface
   }
 
-  network_interface {
-    type = "hostonly"
-    host_interface = var.hostonly_interface
-    ipv4_address   = "192.168.56.${100 + count.index}"
-    ipv4_prefix    = 24
+  network_adapter {
+    type = "nat"
   }
 }
