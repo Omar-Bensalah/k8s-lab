@@ -5,7 +5,7 @@ variable "vm_count" {
 
 # Vagrant box to use for the VMs
 variable "vm_image" {
-  default = "https://app.vagrantup.com/ubuntu/boxes/bionic64/versions/20180903.0.0/providers/virtualbox.box"
+  default = "./jammy-server-cloudimg-amd64.vmdk"
 }
 
 variable "hostonly_interface" {
